@@ -9,6 +9,10 @@ describe "book_index" do
     @author_1 = Author.create(name: "Shakespeare", age: 300, hometown: "London", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shakespeare.jpg/220px-Shakespeare.jpg")
     @author_2 = Author.create(name: "JK Rowling", age: 53, hometown: "Yate", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/J._K._Rowling_2010.jpg/220px-J._K._Rowling_2010.jpg")
     @author_3 = Author.create(name: "James Patterson", age: 71, hometown: "Newburgh", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/James_Patterson.jpg/220px-James_Patterson.jpg")
+
+    BookAuthor.create(book: @book_1, author: @author_2)
+    BookAuthor.create(book: @book_2, author: @author_2)
+    BookAuthor.create(book: @book_3, author: @author_3)
   end
 
   it "user_can_see_all_books" do
@@ -53,12 +57,13 @@ describe "book_index" do
   end
 
   it "user_can_see_all_authors" do
-    book_4 = @author_1.books.create(title: "Hamlet", pages: 342, year_pub: 1992, image: "https://images-na.ssl-images-amazon.com/images/I/41IETeONh-L._SX331_BO1,204,203,200_.jpg", publisher: "Simon & Schuster")
-    # binding.pry
     visit "/books"
 
-    expect(page).to have_content(@book_4.name)
-    # expect(page).to have_content(@book_2.author)
-    # expect(page).to have_content(@book_3.author)
+    @books.each do |book|
+      book.authors.each do |author|
+        expect(page).to have_content(author.name)
+      end
+    end
   end
+
 end
