@@ -1,0 +1,14 @@
+<h1>Enter a new book review:</h1>
+
+<%= form_for @review do |f| %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+
+  <%= f.label :score %>
+  <%= f.number_field :score %>
+
+  <%= f.label :review_text %>
+  <%= f.text_field :review_text %>
+
+  <%= f.submit :Save %>
+<% end %>
