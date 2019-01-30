@@ -1,4 +1,10 @@
+require "rails_helper"
+
 RSpec.describe Book, type: :model do
+  describe "relationships" do
+    it {should have_many(:authors).through(:bookauthors)}
+  end
+  
   describe 'Validations' do
     describe 'Required Field(s)' do
       it 'should be invalid if missing a title' do

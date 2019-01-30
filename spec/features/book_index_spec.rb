@@ -48,4 +48,14 @@ describe "book_index" do
     expect(page).to have_content(review_3.review_text)
     expect(page).to have_content("Score: #{review_3.score}")
   end
+
+  it "user_can_see_all_authors" do
+    author_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body")
+
+    visit "/books"
+
+    expect(page).to have_content(@book_1.author)
+    expect(page).to have_content(@book_2.author)
+    expect(page).to have_content(@book_3.author)
+  end
 end
