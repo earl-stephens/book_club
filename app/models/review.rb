@@ -3,5 +3,5 @@ class Review < ApplicationRecord
 
   validates :title, presence: true
   validates :score, presence: true
-  validates :user, presence: true
+  validates :review_text, presence: true
 end
