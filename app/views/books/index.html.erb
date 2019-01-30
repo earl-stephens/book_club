@@ -2,7 +2,9 @@
 
 <% @books.each do |book| %>
   <h2><%= book.title %></h2>
-  <h2><%= book.author %></h2>
+  <% book.authors.each do |author| %>
+  <h2><%= author.name %><h2>
+    <% end %>
   <p>Pages: <%= book.pages %></p>
   <p>Year: <%= book.year_pub %></p>
   <p><%= book.publisher %></p>

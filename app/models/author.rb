@@ -1,6 +1,6 @@
 class Author < ApplicationRecord
-  has_many :bookauthors
-  has_many :books, through: :bookauthors
+  has_many :book_authors
+  has_many :books, through: :book_authors
 
   validates_presence_of :name
   validates_presence_of :age
