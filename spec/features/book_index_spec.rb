@@ -19,22 +19,26 @@ describe "book_index" do
     visit books_path
 
     expect(page).to have_content("All Books")
-    expect(page).to have_content(@book_1.title)
-    expect(page).to have_content(@book_1.publisher)
-    expect(page).to have_css("img[src*='#{@book_1.image}']")
-    expect(page).to have_content("Pages: #{@book_1.pages}")
-    expect(page).to have_content("Year: #{@book_1.year_pub}")
-    expect(page).to have_content(@book_2.title)
-    expect(page).to have_content(@book_2.publisher)
-    expect(page).to have_css("img[src*='#{@book_2.image}']")
-    expect(page).to have_content("Pages: #{@book_2.pages}")
-    expect(page).to have_content("Year: #{@book_2.year_pub}")
-    expect(page).to have_content(@book_3.title)
-    expect(page).to have_content(@book_3.publisher)
-    expect(page).to have_css("img[src*='#{@book_3.image}']")
-    expect(page).to have_content("Pages: #{@book_3.pages}")
-    expect(page).to have_content("Year: #{@book_3.year_pub}")
-  end
+
+    @books.each do |book|
+      within ".book_#{book.id}"
+        expect(page).to have_content(book.title)
+        expect(page).to have_content(book.publisher)
+        expect(page).to have_css("img[src*='#{book.image}']")
+        expect(page).to have_content("Pages: #{book.pages}")
+        expect(page).to have_content("Year: #{book.year_pub}")
+    # expect(page).to have_content(book2.title)
+    # expect(page).to have_content(book2.publisher)
+    # expect(page).to have_css("img[src*='#{book2.image}']")
+    # expect(page).to have_content("Pages: #{book2.pages}")
+    # expect(page).to have_content("Year: #{book2.year_pub}")
+    # expect(page).to have_content(book3.title)
+    # expect(page).to have_content(book3.publisher)
+    # expect(page).to have_css("img[src*='#{book3.image}']")
+    # expect(page).to have_content("Pages: #{book3.pages}")
+    # expect(page).to have_content("Year: #{book3.year_pub}")
+      end
+    end
 
   context "for each book" do
     it "user_sees_review_statistics" do
