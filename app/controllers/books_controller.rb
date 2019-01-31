@@ -5,4 +5,9 @@ class BooksController < ApplicationController
       @books.select_sort(params[:sort][:value])
     end
   end
+
+  def show
+    @book = Book.find(params[:id])
+  end
+
 end

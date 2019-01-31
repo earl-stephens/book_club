@@ -10,7 +10,6 @@ describe "navbar" do
 
   it "user_can_click_library_button" do
     visit books_path
-    
     click_link("Library")
     expect(current_path).to eq(books_path)
   end
