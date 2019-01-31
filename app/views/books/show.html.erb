@@ -5,9 +5,11 @@
 
 <h1>Book Reviews</h1>
 <section class="book_review">
-<% @book.reviews.each do |review| %>
-<p><%= review.title %></p>
-<p>Score: <%= review.score %></p>
-<p><%= review.review_text %></p>
-<% end %>
+  <% @book.reviews.each do |review| %>
+    <section class="review_<%= review.id %>">
+      <p><%= review.title %></p>
+      <p>Score: <%= review.score %></p>
+      <p><%= review.review_text %></p>
+    </section>
+  <% end %>
 </section>

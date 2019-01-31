@@ -9,23 +9,30 @@ RSpec.describe "review new page", type: :feature do
   end
 
   it "allows user to create a new book review" do
-    Review.new(title: "Good review", score: 4, review_text: "lots of text")
+    title = "Good review"
+    score = 4
+    review_text = "lots of text"
 
-    #visit "/books/#{@book_1.id}/reviews/new(#{@book_1})"
-    visit new_review_path
+    visit new_book_review_path(@book_1)
 
-    fill_in "review[title]", with: "bad review"
-    fill_in "review[score]", with: 5
-    fill_in "review[review_text]", with: "more review"
+    fill_in :review_title, with: title
+    fill_in :review_score, with: score
+    fill_in :review_review_text, with: review_text
+
     click_on 'Save'
 
-    expect(page).to have_content("bad review")
+    #new_review = Review.last
+
+    expect(current_path).to eq(book_path(@book_1))
+    expect(page).to have_content(title)
+    expect(page).to have_content(score)
+    expect(page).to have_content(review_text)
     expect(page).to_not have_content("good review")
   end
 
   it "renders new form if fields invalid" do
     #visit '/reviews/new'
-    visit new_review_path
+    visit new_book_review_path(@book_1)
 
     fill_in "review[title]", with: "bad review"
     fill_in "review[review_text]", with: "more review"

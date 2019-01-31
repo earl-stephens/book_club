@@ -31,11 +31,11 @@ RSpec.describe'book show page', type: :feature do
       visit book_path(@book_1)
 
       @reviews.each do |review|
-        within ".book_review"
+        within ".review_#{review.id}"
           expect(page).to have_content(review.title)
           expect(page).to_not have_content(@review_3.title)
           expect(page).to have_content(review.score)
-          # expect(page).to_not have_content(@review_3.score)
+          #expect(page).to_not have_content(@review_3.score)
           expect(page).to have_content(review.review_text)
           expect(page).to have_content(@review_3.review_text)
       end

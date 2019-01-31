@@ -27,16 +27,6 @@ describe "book_index" do
         expect(page).to have_css("img[src*='#{book.image}']")
         expect(page).to have_content("Pages: #{book.pages}")
         expect(page).to have_content("Year: #{book.year_pub}")
-    # expect(page).to have_content(book2.title)
-    # expect(page).to have_content(book2.publisher)
-    # expect(page).to have_css("img[src*='#{book2.image}']")
-    # expect(page).to have_content("Pages: #{book2.pages}")
-    # expect(page).to have_content("Year: #{book2.year_pub}")
-    # expect(page).to have_content(book3.title)
-    # expect(page).to have_content(book3.publisher)
-    # expect(page).to have_css("img[src*='#{book3.image}']")
-    # expect(page).to have_content("Pages: #{book3.pages}")
-    # expect(page).to have_content("Year: #{book3.year_pub}")
       end
     end
 
@@ -88,7 +78,7 @@ describe "book_index" do
     end
   end
 
-  context "user selects sort by average rating ascending" do
+  xcontext "user selects sort by average rating ascending" do
     it "user can see book list sorted by average rating ascending" do
       visit books_path
       expect(page).to have_content("Sort Results by:")
@@ -101,7 +91,7 @@ describe "book_index" do
     end
   end
 
-  context "user selects sort by average rating descending" do
+  xcontext "user selects sort by average rating descending" do
     it "user can see book list sorted by average rating descending" do
       visit books_path
       expect(page).to have_content("Sort Results by:")

@@ -40,24 +40,6 @@
         <p>Score: <%= review.score %>
       </section>
     <% end %>
-  <p>Pages: <%= book.pages %></p>
-  <p>Year: <%= book.year_pub %></p>
-  <p><%= book.publisher %></p>
-  <img src="<%= book.image %>"/>
-  <% if book.reviews.count == 0 %>
-  <p>Average Score: No reviews for this book yet.</p>
-  <% else %>
-  <p>Average Score: <%= book.avg_score %></p>
-  <% end %>
-  <p>Number of Reviews: <%= book.reviews.count %></p>
-  <p>All Reviews:</p>
-  <% book.reviews.each do |review| %>
-   <section class="review_<%= review.id %>">
-    <p><%= review.title %>
-    <p><%= review.review_text %></p>
-    <p>Score: <%= review.score %></p>
-  <% end %>
-  </section>
   </section>
 <% end %>
 </section>
