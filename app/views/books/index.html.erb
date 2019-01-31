@@ -1,6 +1,16 @@
 <h1>All Books</h1>
-
+<!-- select name="SortSelect" id="SortSelect">
+  <option value="avg_rating_asc">Average rating (ascending)</option>
+  <option value="avg_rating_desc">Average rating (descending)</option>
+  <option value="num_pages_asc">Number of pages (ascending)</option>
+  <option value="num_pages_desc">Number of pages (descending)</option>
+  <option value="num_reviews_asc">Number of reviews (ascending)</option>
+  <option value="num_reviews_desc">Number of reviews (descending)</option>
+</select>
+<h2> <#%= button_to ("Sort" books_path(sort: :value))%> </h2>
+-->
 <% @books.each do |book| %>
+  <section class="book_<%= book.id %>">
   <h2><%= book.title %></h2>
   <% book.authors.each do |author| %>
   <h2><%= author.name %><h2>
@@ -9,11 +19,19 @@
   <p>Year: <%= book.year_pub %></p>
   <p><%= book.publisher %></p>
   <img src="<%= book.image %>"/>
+  <% if book.reviews.count == 0 %>
+  <p>Average Score: No reviews for this book yet.</p>
+  <% else %>
   <p>Average Score: <%= book.avg_score %></p>
+  <% end %>
+  <p>Number of Reviews: <%= book.reviews.count %></p>
   <p>All Reviews:</p>
   <% book.reviews.each do |review| %>
+   <section class="review_<%= review.id %>">
     <p><%= review.title %>
     <p><%= review.review_text %>
     <p>Score: <%= review.score %>
   <% end %>
+  </section>
+  </section>
 <% end %>

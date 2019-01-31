@@ -10,7 +10,14 @@ class Book < ApplicationRecord
   validates :image, presence: true
 
   def avg_score
-    self.reviews.average(:score)
+    if self.reviews.count == 0
+      0
+    else
+      self.reviews.average(:score)
+    end
+  end
+
+  def sort()
   end
 
 end

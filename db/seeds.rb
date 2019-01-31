@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#
+# Book.destroy_all
+# Review.destroy_all
+# Author.destroy_all
+#
+# Book.create(title: 'bob', created_at: 5.days.ago, updated_at: 2.days.ago)
+# Book.create(title: 'bob', created_at: 4.days.ago, updated_at: 2.days.ago)
