@@ -19,9 +19,9 @@ class Book < ApplicationRecord
 
   def self.select_sort(option)
     if option == "avg_rating_asc"
-      self.order(self.avg_score)
+      self.joins(:reviews).group(:id).order("avg(reviews.score) asc, books.title asc")
     elsif option == "avg_rating_desc"
-      self.order(self.avg_score)
+      self.joins(:reviews).group(:id).order("avg(reviews.score) desc, books.title asc")
     elsif option == "num_pages_asc"
       self.order(:pages)
     elsif option == "num_pages_desc"
@@ -31,6 +31,14 @@ class Book < ApplicationRecord
     elsif option == "num_reviews_desc"
       self.order(book.reviews.count :desc)
     end
+  end
+
+  def self.top_books
+    select_sort("avg_rating_asc")
+  end
+
+  def self.worst_books
+    select_sort("avg_rating_desc")
   end
 
 end
