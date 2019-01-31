@@ -10,7 +10,27 @@ class Book < ApplicationRecord
   validates :image, presence: true
 
   def avg_score
-    self.reviews.average(:score)
+    if self.reviews.count == 0
+      0
+    else
+      self.reviews.average(:score)
+    end
+  end
+
+  def self.select_sort(option)
+    if option == "avg_rating_asc"
+      self.order(self.avg_score)
+    elsif option == "avg_rating_desc"
+      self.order(self.avg_score)
+    elsif option == "num_pages_asc"
+      self.order(:pages)
+    elsif option == "num_pages_desc"
+      self.order(pages: :desc)
+    elsif option == "num_reviews_asc"
+      self.order(book.reviews.count)
+    elsif option == "num_reviews_desc"
+      self.order(book.reviews.count :desc)
+    end
   end
 
 end

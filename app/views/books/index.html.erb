@@ -1,19 +1,45 @@
 <h1>All Books</h1>
 
+<section class="sort_results_option">
+  <p>Sort Results by:</p>
+  <form action="/books" method="get">
+    <select name="sort[value]">
+      <option value="avg_rating_asc">Average rating (ascending)</option>
+      <option value="avg_rating_desc">Average rating (descending)</option>
+      <option value="num_pages_asc">Number of pages (ascending)</option>
+      <option value="num_pages_desc">Number of pages (descending)</option>
+      <option value="num_reviews_asc">Number of reviews (ascending)</option>
+      <option value="num_reviews_desc">Number of reviews (descending)</option>
+    </select>
+    <input type="submit" value="Sort">
+  </form>
+</section>
+
+<section>
 <% @books.each do |book| %>
-  <h2><%= book.title %></h2>
-  <% book.authors.each do |author| %>
-  <h2><%= author.name %><h2>
+  <section class="book_<%= book.id %>">
+    <h2 class="book-title"><%= book.title %></h2>
+    <% book.authors.each do |author| %>
+      <h2><%= author.name %><h2>
     <% end %>
-  <p>Pages: <%= book.pages %></p>
-  <p>Year: <%= book.year_pub %></p>
-  <p><%= book.publisher %></p>
-  <img src="<%= book.image %>"/>
-  <p>Average Score: <%= book.avg_score %></p>
-  <p>All Reviews:</p>
-  <% book.reviews.each do |review| %>
-    <p><%= review.title %>
-    <p><%= review.review_text %>
-    <p>Score: <%= review.score %>
-  <% end %>
+    <p>Pages: <%= book.pages %></p>
+    <p>Year: <%= book.year_pub %></p>
+    <p><%= book.publisher %></p>
+    <img src="<%= book.image %>"/>
+    <% if book.reviews.count == 0 %>
+      <p>Average Score: No reviews for this book yet.</p>
+    <% else %>
+      <p>Average Score: <%= book.avg_score %></p>
+    <% end %>
+    <p>Number of Reviews: <%= book.reviews.count %></p>
+    <p>All Reviews:</p>
+    <% book.reviews.each do |review| %>
+      <section class="review_<%= review.id %>">
+        <p><%= review.title %>
+        <p><%= review.review_text %>
+        <p>Score: <%= review.score %>
+      </section>
+    <% end %>
+  </section>
 <% end %>
+</section>
