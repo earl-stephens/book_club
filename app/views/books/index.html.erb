@@ -15,6 +15,30 @@
   </form>
 </section>
 
+<section class="statistics">
+  <article class="statistics_top_books">
+    <p>Recommended Selections:</p>
+    <% @top_books.each do |book| %>
+      <%= book.title %>
+      <%= book.avg_score %>
+    <% end %>
+  </article>
+  <article class="statistics_worst_books">
+    <p>Readers Hated:</p>
+    <% @worst_books.each do |book| %>
+      <%= book.title %>
+      <%= book.avg_score %>
+    <% end %>
+  </article>
+  <article class="statistics_top_users">
+    <p>People with too much free time:</p>
+    <% @top_users.each do |book| %>
+      <%= book.title %>
+      <%= book.avg_score %>
+    <% end %>
+  </article>
+</section>
+
 <section>
 <% @books.each do |book| %>
   <section class="book_<%= book.id %>">
