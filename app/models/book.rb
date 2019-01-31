@@ -17,7 +17,20 @@ class Book < ApplicationRecord
     end
   end
 
-  def sort()
+  def self.select_sort(option)
+    if option == "avg_rating_asc"
+      self.order(avg_score)
+    elsif option == "avg_rating_desc"
+      self.order(avg_score)
+    elsif option == "num_pages_asc"
+      self.order(:pages)
+    elsif option == "num_pages_desc"
+      self.order(pages: :desc)
+    elsif option == "num_reviews_asc"
+      self.order(book.reviews.count)
+    elsif option == "num_reviews_desc"
+      self.order(book.reviews.count :desc)
+    end
   end
 
 end
