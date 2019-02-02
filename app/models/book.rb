@@ -41,4 +41,10 @@ class Book < ApplicationRecord
     select_sort("avg_rating_desc")
   end
 
+  def top_reviews
+    # binding.pry
+    self.reviews.order(score: :desc).limit(3)
+    # binding.pry
+  end
+
 end
