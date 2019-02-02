@@ -155,4 +155,16 @@ describe "book_index" do
     end
   end
 
+  context "user can add a new book"
+    it "user sees a link to add a new book" do
+      visit books_path
+
+      within ".new_book" do
+      expect(page).to have_content("Add a new book")
+
+      click_on "Add a new book"
+      expect(current_path).to eq(new_book_path)
+    end
+  end
+
 end

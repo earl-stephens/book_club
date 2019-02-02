@@ -15,4 +15,8 @@ class BooksController < ApplicationController
     # @top_reviews = Book.top_reviews
   end
 
+  def new
+    @book = Book.new
+  end
+
 end
