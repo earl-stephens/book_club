@@ -32,7 +32,7 @@
   </article>
   <article class="statistics_top_users">
     <p>People with too much free time:</p>
-    <% @top_users.each do |book| %>
+    <% @top_reviewers.each do |book| %>
       <%= book.title %>
       <%= book.avg_score %>
     <% end %>
