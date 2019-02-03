@@ -9,8 +9,13 @@ class ReviewsController < ApplicationController
   end
 
   def create
+    username = params[:review][:user]
+    user = User.find_or_create_by(name: username.titleize.strip)
+
+    new_params = review_params
+    new_params[:user] = user
     @book = Book.find(params[:book_id])
-    @review = @book.reviews.create(review_params)
+    @review = @book.reviews.new(new_params)
     if @review.save
       redirect_to book_path(@book.id)
     else
