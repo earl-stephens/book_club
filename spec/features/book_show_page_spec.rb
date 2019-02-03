@@ -8,11 +8,20 @@ RSpec.describe'book show page', type: :feature do
     @review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body")
     @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")
     @review_3 = @book_2.reviews.create(title: "So so", score: 3, review_text: "text body")
+    @review_4 = @book_1.reviews.create(title: "Loved it", score: 5, review_text: "my fave")
+    @review_5 = @book_1.reviews.create(title: "Ok", score: 3, review_text: "it was ok")
+    @review_6 = @book_1.reviews.create(title: "Best ever!", score: 5, review_text: "highly recommended")
+    @review_7 = @book_1.reviews.create(title: "It was good", score: 4, review_text: "would read it again")
+    @review_8 = @book_1.reviews.create(title: "Not so good", score: 2, review_text: "wouldn't recommend it")
+    @review_9 = @book_1.reviews.create(title: "Great!", score: 4, review_text: "new favorite")
+
     @reviews = [@review_1, @review_2]
+
     @user_1 = User.create(reviews: [@review_1, @review_3], name: "April")
     @user_2 = User.create(reviews: [@review_2], name: "Peter")
     @user_3 = User.create(reviews: [@review_3], name: "Julia")
     @user_4 = User.create(name: "Earl")
+
   end
 
   context "user sees book information"
@@ -44,4 +53,18 @@ RSpec.describe'book show page', type: :feature do
           expect(page).to have_content(@review_3.review_text)
       end
     end
+
+  context "user sees book statistics area"
+    it "shows_the_user_the_book_statistics" do
+
+      visit book_path(@book_1)
+
+      within ".top_reviews"
+      # expected = [@review_4, @review_6, @review_7]
+      expect(page).to have_content("Book Statistics")
+      expect(page).to have_content("Loved it")
+      expect(page).to have_content("Hated it")
+      expect(page).to have_content("Average rating: 3")
+    end
+
 end

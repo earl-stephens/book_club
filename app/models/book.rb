@@ -45,4 +45,10 @@ class Book < ApplicationRecord
     joins(:reviews).group(:id).order("avg(reviews.score) asc, books.title asc")
   end
 
+  def top_reviews
+    # binding.pry
+    self.reviews.order(score: :desc).limit(3)
+    # binding.pry
+  end
+
 end

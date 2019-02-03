@@ -3,6 +3,16 @@
 <h1><%= @book.year_pub %></h1>
 <img src="<%= @book.image %>" alt="large book image"/>
 
+<section class="book_stats">
+  <h1>Book Statistics</h1>
+  <h2>Top three reviews: </h2>
+  <% @book.top_reviews.each do |review| %>
+  <p><%= review %></p>
+  <% end %>
+  <h2>Bottom three reviews: </h2>
+  <h2>Average rating: <%= @book.avg_score %></h2>
+</section>
+
 <h1>Book Reviews</h1>
 <section class="book_review">
   <% @book.reviews.each do |review| %>
