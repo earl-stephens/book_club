@@ -30,11 +30,11 @@
       <%= book.avg_score %>
     <% end %>
   </article>
-  <article class="statistics_top_users">
+  <article class="statistics_top_reviewers">
     <p>People with too much free time:</p>
-    <% @top_users.each do |book| %>
-      <%= book.title %>
-      <%= book.avg_score %>
+    <% @top_reviewers.each do |reviewer| %>
+      <%= reviewer.name %>
+      <%= reviewer.number_reviews %>
     <% end %>
   </article>
 </section>

@@ -15,7 +15,10 @@ describe "book_index" do
     @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")
     @review_3 = @book_2.reviews.create(title: "So so", score: 3, review_text: "text body")
     @review_4 = @book_4.reviews.create(title: "As Expected", score: 5, review_text: "Love Ruby")
-
+    @user_1 = User.create(reviews: [@review_1, @review_3], name: "April")
+    @user_2 = User.create(reviews: [@review_2], name: "Peter")
+    @user_3 = User.create(reviews: [@review_4], name: "Julia")
+    @user_4 = User.create(name: "Earl")
   end
 
   it "user_can_see_all_books" do
@@ -46,9 +49,25 @@ describe "book_index" do
       end
 
       it "user_can_see_three_worst_rated_books" do
+        visit books_path
+
+        within ".statistics_worst_books" do
+          expect(page).to have_content("Readers Hated:")
+          expect(page).to have_content("Ruby on Rails")
+          expect(page).to have_content("Harry Potter 2")
+          expect(page).to have_content("Harry Potter 1")
+        end
       end
 
       it "user_can_see_three_users_with_most_reviews" do
+        visit books_path
+
+        within ".statistics_top_reviewers" do
+          expect(page).to have_content("People with too much free time:")
+          expect(page).to have_content("April")
+          expect(page).to have_content("Julia")
+          expect(page).to have_content("Peter")
+        end
       end
     end
 
@@ -104,36 +123,40 @@ describe "book_index" do
   context "user selects sort by average rating ascending" do
     it "user can see book list sorted by average rating ascending" do
       visit books_path
+
       expect(page).to have_content("Sort Results by:")
+
       select "Average rating (ascending)", :from => "sort[value]"
       click_button("Sort")
-      # find('#SortSelect').find(:xpath, 'avg_rating_asc').select_option
-      expect(page.all('.book-title')[0]).to have_content('Harry Potter 1')
-      expect(page.all('.book-title')[1]).to have_content('Harry Potter 2')
-      expect(page.all('.book-title')[2]).to have_content('Ruby on Rails')
+
+      expect(page.all('.book-title')[0]).to have_content('The Shining')
+      expect(page.all('.book-title')[1]).to have_content('Harry Potter 1')
+      expect(page.all('.book-title')[2]).to have_content('Harry Potter 2')
+      expect(page.all('.book-title')[3]).to have_content('Ruby on Rails')
     end
   end
 
   context "user selects sort by average rating descending" do
     it "user can see book list sorted by average rating descending" do
       visit books_path
-      expect(page).to have_content("Sort Results by:")
+
       select "Average rating (descending)", :from => "sort[value]"
       click_button("Sort")
-      # find('#SortSelect').find(:xpath, 'avg_rating_asc').select_option
+
       expect(page.all('.book-title')[0]).to have_content('Ruby on Rails')
       expect(page.all('.book-title')[1]).to have_content('Harry Potter 2')
       expect(page.all('.book-title')[2]).to have_content('Harry Potter 1')
+      expect(page.all('.book-title')[3]).to have_content('The Shining')
     end
   end
 
   context "user selects sort by number pages ascending" do
     it "user can see book list sorted by number pages ascending" do
       visit books_path
-      expect(page).to have_content("Sort Results by:")
+
       select "Number of pages (ascending)", :from => "sort[value]"
       click_button("Sort")
-      # find('#SortSelect').find(:xpath, 'avg_rating_asc').select_option
+
       expect(page.all('.book-title')[0]).to have_content('Harry Potter 2')
       expect(page.all('.book-title')[1]).to have_content('Harry Potter 1')
       expect(page.all('.book-title')[2]).to have_content('Ruby on Rails')
@@ -144,10 +167,10 @@ describe "book_index" do
   context "user selects sort by number pages descending" do
     it "user can see book list sorted by number pages descending" do
       visit books_path
-      expect(page).to have_content("Sort Results by:")
+
       select "Number of pages (descending)", :from => "sort[value]"
       click_button("Sort")
-      # find('#SortSelect').find(:xpath, 'avg_rating_asc').select_option
+
       expect(page.all('.book-title')[3]).to have_content('Harry Potter 2')
       expect(page.all('.book-title')[2]).to have_content('Harry Potter 1')
       expect(page.all('.book-title')[1]).to have_content('Ruby on Rails')
@@ -164,6 +187,33 @@ describe "book_index" do
 
       click_on "Add a new book"
       expect(current_path).to eq(new_book_path)
+     
+
+  context "user selects sort by number of reviews ascending" do
+    it "user can see book list sorted by number of reviews ascending" do
+      visit books_path
+
+      select "Number of reviews (ascending)", :from => "sort[value]"
+      click_button("Sort")
+
+      expect(page.all('.book-title')[0]).to have_content('The Shining')
+      expect(page.all('.book-title')[1]).to have_content('Harry Potter 2')
+      expect(page.all('.book-title')[2]).to have_content('Ruby on Rails')
+      expect(page.all('.book-title')[3]).to have_content('Harry Potter 1')
+    end
+  end
+
+  context "user selects sort by number of reviews descending" do
+    it "user can see book list sorted by number of reviews descending" do
+      visit books_path
+
+      select "Number of reviews (descending)", :from => "sort[value]"
+      click_button("Sort")
+
+      expect(page.all('.book-title')[0]).to have_content('Harry Potter 1')
+      expect(page.all('.book-title')[1]).to have_content('Harry Potter 2')
+      expect(page.all('.book-title')[2]).to have_content('Ruby on Rails')
+      expect(page.all('.book-title')[3]).to have_content('The Shining')
     end
   end
 
