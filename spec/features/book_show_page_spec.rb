@@ -9,6 +9,10 @@ RSpec.describe'book show page', type: :feature do
     @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")
     @review_3 = @book_2.reviews.create(title: "So so", score: 3, review_text: "text body")
     @reviews = [@review_1, @review_2]
+    @user_1 = User.create(reviews: [@review_1, @review_3], name: "April")
+    @user_2 = User.create(reviews: [@review_2], name: "Peter")
+    @user_3 = User.create(reviews: [@review_3], name: "Julia")
+    @user_4 = User.create(name: "Earl")
   end
 
   context "user sees book information"

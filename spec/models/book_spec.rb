@@ -33,6 +33,10 @@ RSpec.describe Book, type: :model do
       @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")
       @review_3 = @book_2.reviews.create(title: "So so", score: 3, review_text: "text body")
       @review_4 = @book_4.reviews.create(title: "As Expected", score: 5, review_text: "Love Ruby")
+      @user_1 = User.create(reviews: [@review_1, @review_3], name: "April")
+      @user_2 = User.create(reviews: [@review_2], name: "Peter")
+      @user_3 = User.create(reviews: [@review_4], name: "Julia")
+      @user_4 = User.create(name: "Earl")
     end
 
     context 'it can sort by' do
@@ -94,6 +98,8 @@ RSpec.describe Book, type: :model do
       @review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body")
       @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")
       @review_3 = @book_1.reviews.create(title: "Hated it", score: 2, review_text: "text body")
+      @user_1 = User.create(reviews: [@review_1, @review_2, @review_3], name: "April")
+
 
       score = @book_1.avg_score.round(2)
 
@@ -110,6 +116,7 @@ RSpec.describe Book, type: :model do
       @review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body")
       @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")
       @review_3 = @book_1.reviews.create(title: "Hated it", score: 2, review_text: "text body")
+      @user_1 = User.create(reviews: [@review_1, @review_2, @review_3], name: "April")
 
       score = @book_1.avg_score.round(2)
 
