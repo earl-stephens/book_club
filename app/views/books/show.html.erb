@@ -2,6 +2,11 @@
 <h1><%= @book.pages %></h1>
 <h1><%= @book.year_pub %></h1>
 <img src="<%= @book.image %>" alt="large book image"/>
+<% @book.authors.each do |author| %>
+<p><%= author.name %></p>
+<% end %>
+
+
 
 <section class="book_stats">
   <h1>Book Statistics</h1>
