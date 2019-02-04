@@ -1,12 +1,14 @@
-<%= form_for Book.new do |f| %>
+<% require 'date' %>
+
+<%= form_for @book do |f| %>
   <%= f.label :title %>
   <%= f.text_field :title %>
 
   <%= f.label :pages %>
-  <%= f.text_field :pages %>
+  <%= f.number_field :pages, min:1 %>
 
   <%= f.label :year_pub %>
-  <%= f.text_field :year_pub %>
+  <%= f.number_field :year_pub, in: 0..Date.today.year %>
 
   <%= f.label :image %>
   <%= f.text_field :image %>

@@ -43,4 +43,17 @@ RSpec.describe "review new page", type: :feature do
     expect(page).to have_selector("input[type=submit][value='Save']")
   end
 
+  it "renders error message if number fields invalid" do
+    visit new_book_review_path(@book_1)
+
+    fill_in "review[title]", with: "bad review"
+    fill_in "review[review_text]", with: "bad numbers"
+    fill_in :review_user, with: "Frank"
+    fill_in :review_score, with: 7
+
+    click_on 'Save'
+
+    expect(page).to have_selector("input[type=submit][value='Save']")
+  end
+
 end
