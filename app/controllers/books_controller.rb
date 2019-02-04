@@ -26,6 +26,11 @@ class BooksController < ApplicationController
     end
     new_book_params = book_params
     new_book_params["authors"] = authors
+
+    if params["book"]["image"] == ""
+      new_book_params.delete("image")
+    end
+
     @book = Book.new(new_book_params)
     if @book.save
       redirect_to book_path(@book.id)
