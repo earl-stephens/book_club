@@ -21,10 +21,9 @@ RSpec.describe'book show page', type: :feature do
     @user_2 = User.create(reviews: [@review_2], name: "Peter")
     @user_3 = User.create(reviews: [@review_3], name: "Julia")
     @user_4 = User.create(name: "Earl")
-
   end
 
-  context "user sees book information"
+  context "user sees book information" do
     it "user_can_see_a_book_show_page" do
 
       visit book_path(@book_1)
@@ -37,8 +36,9 @@ RSpec.describe'book show page', type: :feature do
       expect(page).to have_css("img[src*='#{@book_1.image}']")
       expect(page).to have_css("img[src*='#{@book_3.image}']")
     end
+  end
 
-  context "user sees book review information"
+  context "user sees book review information" do
     it "user_sees_book_reviews_on_show_page" do
 
       visit book_path(@book_1)
@@ -53,8 +53,9 @@ RSpec.describe'book show page', type: :feature do
           expect(page).to have_content(@review_3.review_text)
       end
     end
+  end
 
-  context "user sees book statistics area"
+  context "user sees book statistics area" do
     it "shows_the_user_the_book_statistics" do
 
       visit book_path(@book_1)
@@ -66,5 +67,6 @@ RSpec.describe'book show page', type: :feature do
       expect(page).to have_content("Hated it")
       expect(page).to have_content("Average rating: 3")
     end
+  end
 
 end
