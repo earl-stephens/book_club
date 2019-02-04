@@ -53,13 +53,14 @@ class Book < ApplicationRecord
 
   def top_review
     self.reviews.order(score: :desc).limit(1).first
-    # binding.pry
   end
 
   def top_reviews
-    # binding.pry
     self.reviews.order(score: :desc).limit(3)
-    # binding.pry
+  end
+
+  def bottom_reviews
+    self.reviews.order(score: :asc).limit(3)
   end
 
   def other_authors(name)
