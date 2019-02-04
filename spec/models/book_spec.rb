@@ -92,15 +92,16 @@ RSpec.describe Book, type: :model do
   end
 
   describe "Instance Methods" do
-    it "can find average review score" do
+    before :each do
       @book_1 = Book.create(title: "Harry Potter 1", pages: 303, year_pub: 1991, image: "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608", publisher: "Random House")
       @book_2 = Book.create(title: "Harry Potter 2", pages: 303, year_pub: 1991, image: "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608", publisher: "Random House")
       @review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body")
       @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")
       @review_3 = @book_1.reviews.create(title: "Hated it", score: 2, review_text: "text body")
       @user_1 = User.create(reviews: [@review_1, @review_2, @review_3], name: "April")
+    end
 
-
+    it "can find average review score" do
       score = @book_1.avg_score.round(2)
 
       expect(score).to eq(2.33)
@@ -111,13 +112,6 @@ RSpec.describe Book, type: :model do
     end
 
     it "can find total number of review users" do
-      @book_1 = Book.create(title: "Harry Potter 1", pages: 303, year_pub: 1991, image: "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608", publisher: "Random House")
-      @book_2 = Book.create(title: "Harry Potter 2", pages: 303, year_pub: 1991, image: "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608", publisher: "Random House")
-      @review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body")
-      @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")
-      @review_3 = @book_1.reviews.create(title: "Hated it", score: 2, review_text: "text body")
-      @user_1 = User.create(reviews: [@review_1, @review_2, @review_3], name: "April")
-
       score = @book_1.avg_score.round(2)
 
       expect(score).to eq(2.33)
@@ -126,6 +120,19 @@ RSpec.describe Book, type: :model do
 
       expect(score).to eq(0)
     end
+
+    it "can find list of additional authors" do
+      book_1 = Book.create(title: "Harry Potter 1", pages: 303, year_pub: 1991, image: "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608", publisher: "Random House")
+      author_1 = Author.create(books: [book_1], name: "JK Rowling", age: 53, hometown: "Yate", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/J._K._Rowling_2010.jpg/220px-J._K._Rowling_2010.jpg")
+      author_2 = Author.create(books: [book_1], name: "Shakespeare", age: 300, hometown: "London", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shakespeare.jpg/220px-Shakespeare.jpg")
+      author_3 = Author.create(books: [book_1], name: "James Patterson", age: 71, hometown: "Newburgh", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/James_Patterson.jpg/220px-James_Patterson.jpg")
+
+      other_authors = book_1.other_authors(author_1.name)
+
+      expect(other_authors).to eq([author_3, author_2])
+    end
+
+
   end
 
 end

@@ -27,7 +27,7 @@ describe "book_index" do
     expect(page).to have_content("All Books")
 
     @books.each do |book|
-      within ".book_#{book.id}"
+      within ".book_#{book.id}" do
         expect(page).to have_content(book.title)
         expect(page).to have_content(book.publisher)
         expect(page).to have_css("img[src*='#{book.image}']")
@@ -35,41 +35,42 @@ describe "book_index" do
         expect(page).to have_content("Year: #{book.year_pub}")
       end
     end
+  end
 
-    context "index_statistics" do
-      it "user_can_see_three_highest_rated_books" do
-        visit books_path
+  context "index_statistics" do
+    it "user_can_see_three_highest_rated_books" do
+      visit books_path
 
-        within ".statistics_top_books" do
-          expect(page).to have_content("Recommended Selections:")
-          expect(page).to have_content("Ruby on Rails")
-          expect(page).to have_content("Harry Potter 2")
-          expect(page).to have_content("Harry Potter 1")
-        end
-      end
-
-      it "user_can_see_three_worst_rated_books" do
-        visit books_path
-
-        within ".statistics_worst_books" do
-          expect(page).to have_content("Readers Hated:")
-          expect(page).to have_content("Ruby on Rails")
-          expect(page).to have_content("Harry Potter 2")
-          expect(page).to have_content("Harry Potter 1")
-        end
-      end
-
-      it "user_can_see_three_users_with_most_reviews" do
-        visit books_path
-
-        within ".statistics_top_reviewers" do
-          expect(page).to have_content("People with too much free time:")
-          expect(page).to have_content("April")
-          expect(page).to have_content("Julia")
-          expect(page).to have_content("Peter")
-        end
+      within ".statistics_top_books" do
+        expect(page).to have_content("Recommended Selections:")
+        expect(page).to have_content("Ruby on Rails")
+        expect(page).to have_content("Harry Potter 2")
+        expect(page).to have_content("Harry Potter 1")
       end
     end
+
+    it "user_can_see_three_worst_rated_books" do
+      visit books_path
+
+      within ".statistics_worst_books" do
+        expect(page).to have_content("Readers Hated:")
+        expect(page).to have_content("Ruby on Rails")
+        expect(page).to have_content("Harry Potter 2")
+        expect(page).to have_content("Harry Potter 1")
+      end
+    end
+
+    it "user_can_see_three_users_with_most_reviews" do
+      visit books_path
+
+      within ".statistics_top_reviewers" do
+        expect(page).to have_content("People with too much free time:")
+        expect(page).to have_content("April")
+        expect(page).to have_content("Julia")
+        expect(page).to have_content("Peter")
+      end
+    end
+  end
 
 
   context "for each book" do
@@ -178,16 +179,18 @@ describe "book_index" do
     end
   end
 
-  context "user can add a new book"
+  context "user can add a new book" do
     it "user sees a link to add a new book" do
       visit books_path
 
       within ".new_book" do
-      expect(page).to have_content("Add a new book")
+        expect(page).to have_content("Add a new book")
+      end
 
       click_on "Add a new book"
       expect(current_path).to eq(new_book_path)
-     
+    end
+  end
 
   context "user selects sort by number of reviews ascending" do
     it "user can see book list sorted by number of reviews ascending" do

@@ -1,0 +1,24 @@
+<h1><%= @author.name %></h1>
+<h3>Age: <%= @author.age %></h3>
+<h3>Born: <%= @author.hometown %></h3>
+<img src="<%= @author.image %>" alt="large author image"/>
+<% @author.books.each do |book| %>
+  <img src="<%= book.image %>" alt="small book image"/>
+  <p><%= book.title %></p>
+  <p>Pages: <%= book.pages %></p>
+  <p>Year: <%= book.year_pub %></p>
+  <% if !book.other_authors(@author.name).empty? %>
+    <p>Additional authors:
+      <% book.other_authors(@author.name).each do |author|%>
+        <a href="/authors/<%= author.id %>"><%= author.name %></a>
+      <% end %>
+    </p>
+  <% end %>
+  <% review = book.top_review %>
+  <section class="author_book_<%= book.id %>_review">
+    <p><%= review.title %></p>
+    <p>Rating: <%= review.score %></p>
+    <p><%= review.review_text %></p>
+    <p>User: <a href="/users/<%= review.user.id %>"><%= review.user.name %></a>
+  </section>
+<% end %>

@@ -25,7 +25,7 @@ RSpec.describe "review new page", type: :feature do
 
     expect(current_path).to eq(book_path(@book_1))
     expect(page).to have_content(title)
-    expect(page).to have_content(score)
+    expect(page).to have_content("Rating: #{score}")
     expect(page).to have_content(review_text)
     expect(page).to have_content(user)
     expect(page).to_not have_content("good review")

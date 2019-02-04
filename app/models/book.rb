@@ -51,10 +51,19 @@ class Book < ApplicationRecord
     joins(:reviews).group(:id).order("avg(reviews.score) asc, books.title asc")
   end
 
+  def top_review
+    self.reviews.order(score: :desc).limit(1).first
+    # binding.pry
+  end
+
   def top_reviews
     # binding.pry
     self.reviews.order(score: :desc).limit(3)
     # binding.pry
+  end
+
+  def other_authors(name)
+    self.authors.where.not(name: name).order(:name)
   end
 
 end
