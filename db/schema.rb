@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190202235751) do
+ActiveRecord::Schema.define(version: 20190204233340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20190202235751) do
     t.string "name"
     t.integer "age"
     t.string "location"
-    t.text "image"
+    t.text "image", default: "https://ae01.alicdn.com/kf/HTB1ebxFSXXXXXcCaXXXq6xXFXXX1/18cm-14-6cm-Interesting-Vinyl-Decal-Karate-Stick-Figure-Man-Ninja-Car-Sticker-Black-Silver-S6.jpg_640x640.jpg"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

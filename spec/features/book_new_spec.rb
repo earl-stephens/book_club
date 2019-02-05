@@ -17,15 +17,31 @@ RSpec.describe "book new page", type: :feature do
       fill_in :book_year_pub, with: year_pub
       fill_in :book_image, with: nil
       fill_in :book_authors, with: authors
-# save_and_open_page
+
       click_on 'Save'
+
       expect(current_path).to eq(book_path(Book.last))
       expect(page).to have_content(title)
       expect(page).to have_content(pages)
       expect(page).to have_content(year_pub)
-      # expect(page).to have_css("img[src*='#{image}']")
-# save_and_open_page
       expect(page).to have_content("Margaret Atwood")
+    end
+
+    it "renders new form if fields invalid" do
+      title = "The Testaments"
+      year_pub = 2019
+      pages = 320
+      authors = "Margaret Atwood, Stephen King"
+
+      visit new_book_path
+
+      fill_in :book_pages, with: pages
+      fill_in :book_year_pub, with: year_pub
+      fill_in :book_authors, with: authors
+
+      click_on 'Save'
+
+      expect(page).to have_selector("input[type=submit][value='Save']")
     end
   end
 end

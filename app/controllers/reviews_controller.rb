@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
-  def show
-    @review = Review.find(params[:id])
-  end
+  # def show
+  #   @review = Review.find(params[:id])
+  # end
 
   def new
     @book = Book.find(params[:book_id])
@@ -9,10 +9,15 @@ class ReviewsController < ApplicationController
   end
 
   def create
+    new_params = review_params
+    #
+    # if params[:review][:image] == ""
+    #   new_params.delete("image")
+    # end
+
     username = params[:review][:user]
     user = User.find_or_create_by(name: username.titleize.strip)
 
-    new_params = review_params
     new_params[:user] = user
     @book = Book.find(params[:book_id])
     @review = @book.reviews.new(new_params)
@@ -26,6 +31,6 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:title, :score, :review_text, :book_id)
+    params.require(:review).permit(:title, :score, :review_text, :book_id, :image)
   end
 end
