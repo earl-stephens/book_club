@@ -14,12 +14,12 @@ RSpec.describe'user show page', type: :feature do
     @author_4 = Author.create(books: [@book_4], name: "Nerd", age: 26, hometown: "lameville", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/James_Patterson.jpg/220px-James_Patterson.jpg")
 
     @review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body", created_at: "2019-01-31 00:00:00")
-    #@review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body", created_at: Date.today - 5)
     @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body", created_at: "2019-02-02 00:00:00")
     @review_3 = @book_2.reviews.create(title: "So so", score: 3, review_text: "text body", created_at: "2019-02-01 00:00:00")
     @review_4 = @book_4.reviews.create(title: "As Expected", score: 5, review_text: "Love Ruby", created_at: "2019-01-11 00:00:00")
+    @review_5 = @book_1.reviews.create(title: "Still Hated it", score: 1, review_text: "text body", created_at: "2019-02-05 00:00:00")
 
-    @user_1 = User.create(reviews: [@review_1, @review_3], name: "April", age: 35, location: "Paris", image: "https://ae01.alicdn.com/kf/HTB1ebxFSXXXXXcCaXXXq6xXFXXX1/18cm-14-6cm-Interesting-Vinyl-Decal-Karate-Stick-Figure-Man-Ninja-Car-Sticker-Black-Silver-S6.jpg_640x640.jpg")
+    @user_1 = User.create(reviews: [@review_1, @review_3, @review_5], name: "April", age: 35, location: "Paris", image: "https://ae01.alicdn.com/kf/HTB1ebxFSXXXXXcCaXXXq6xXFXXX1/18cm-14-6cm-Interesting-Vinyl-Decal-Karate-Stick-Figure-Man-Ninja-Car-Sticker-Black-Silver-S6.jpg_640x640.jpg")
     @user_2 = User.create(reviews: [@review_2], name: "Peter")
     @user_3 = User.create(reviews: [@review_4], name: "Julia")
     @user_4 = User.create(name: "Earl")
@@ -43,28 +43,74 @@ RSpec.describe'user show page', type: :feature do
     it "user can see all user reviews" do
       visit user_path(@user_1)
 
-      #@user_1.reviews.each do |review|
-        within ".user_review_#{@review_1.id}" do
-          image = "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608"
-          expect(page).to have_css("img[src*='#{image}']")
-          expect(page).to have_content("Harry Potter 1")
-          expect(page).to have_content("Good book")
-          expect(page).to have_content("Rating: 4")
-          expect(page).to have_content("text body")
-          expect(page).to have_content("Created on: January 31, 2019")
-        end
+      within ".user_review_#{@review_1.id}" do
+        image = "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608"
+        expect(page).to have_css("img[src*='#{image}']")
+        expect(page).to have_content("Harry Potter 1")
+        expect(page).to have_content("Good book")
+        expect(page).to have_content("Rating: 4")
+        expect(page).to have_content("text body")
+        expect(page).to have_content("Created on: January 31, 2019")
+      end
 
-        within ".user_review_#{@review_3.id}" do
-          image = "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608"
-          expect(page).to have_css("img[src*='#{image}']")
-          expect(page).to have_content("Harry Potter 2")
-          expect(page).to have_content("So so")
-          expect(page).to have_content("Rating: 3")
-          expect(page).to have_content("text body")
-          expect(page).to have_content("Created on: February 1, 2019")
-        end
-
+      within ".user_review_#{@review_3.id}" do
+        image = "https://d3n8a8pro7vhmx.cloudfront.net/sundayassemblyla/pages/2543/attachments/original/1528303608/book.jpg?1528303608"
+        expect(page).to have_css("img[src*='#{image}']")
+        expect(page).to have_content("Harry Potter 2")
+        expect(page).to have_content("So so")
+        expect(page).to have_content("Rating: 3")
+        expect(page).to have_content("text body")
+        expect(page).to have_content("Created on: February 1, 2019")
+      end
     end
-  end
 
+    it "user can sort reviews by descending chronological order" do
+      visit user_path(@user_1)
+
+      expect(page).to have_content("Sort Reviews by:")
+
+      select "Most Recent", :from => "sort[value]"
+      click_button("Sort")
+
+      expect(page.all('.user_review')[0]).to have_content('Still Hated it')
+      expect(page.all('.user_review')[1]).to have_content('So so')
+      expect(page.all('.user_review')[2]).to have_content('Good book')
+    end
+
+    it "user can sort reviews by ascending chronological order" do
+      visit user_path(@user_1)
+
+      expect(page).to have_content("Sort Reviews by:")
+
+      select "Oldest", :from => "sort[value]"
+      click_button("Sort")
+
+      expect(page.all('.user_review')[0]).to have_content('Good book')
+      expect(page.all('.user_review')[1]).to have_content('So so')
+      expect(page.all('.user_review')[2]).to have_content('Still Hated it')
+    end
+
+    it "user can see delete button for reviews" do
+      visit user_path(@user_1)
+
+      @user_1.reviews.each do |review|
+        within ".user_review_#{review.id}" do
+          expect(page).to have_button('Delete Review')
+        end
+      end
+    end
+
+    it "user can delete review" do
+      visit user_path(@user_1)
+
+      within ".user_review_#{@review_1.id}" do
+        click_on "Delete Review"
+      end
+
+      expect(current_path).to eq(user_path(@user_1))
+      expect(page).to_not have_content("Good book")
+      expect(page).to have_content("So so")
+    end
+
+  end
 end

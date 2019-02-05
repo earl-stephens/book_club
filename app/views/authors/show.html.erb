@@ -2,6 +2,10 @@
 <h3>Age: <%= @author.age %></h3>
 <h3>Born: <%= @author.hometown %></h3>
 <img src="<%= @author.image %>" alt="large author image"/>
+<section class="author_delete">
+  <%= button_to 'Delete Author', author_path(@author), method: :delete, data: { confirm: 'Are you sure you want to delete this author?' } %>
+</section>
+
 <% @author.books.each do |book| %>
   <img src="<%= book.image %>" alt="small book image"/>
   <p><a href="/books/<%= book.id %>"><%= book.title %></a></p>
@@ -15,10 +19,14 @@
     </p>
   <% end %>
   <% review = book.top_review %>
-  <section class="author_book_<%= book.id %>_review">
-    <p><%= review.title %></p>
-    <p>Rating: <%= review.score %></p>
-    <p><%= review.review_text %></p>
-    <p>User: <a href="/users/<%= review.user.id %>"><%= review.user.name %></a>
-  </section>
+  <% if review %>
+    <section class="author_book_<%= book.id %>_review">
+      <p><%= review.title %></p>
+      <p>Rating: <%= review.score %></p>
+      <p><%= review.review_text %></p>
+      <p>User: <a href="/users/<%= review.user.id %>"><%= review.user.name %></a>
+    </section>
+    <% else %>
+      <p>Book has no reviews yet.</p>
+    <% end %>
 <% end %>

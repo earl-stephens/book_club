@@ -28,6 +28,13 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def destroy
+    # binding.pry
+    @review = Review.find(params[:review])
+    @review.destroy
+    redirect_to user_path(params[:id]), notice: "Review Deleted"
+  end
+
   private
 
   def review_params
