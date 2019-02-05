@@ -14,7 +14,6 @@ RSpec.describe'user show page', type: :feature do
     @author_4 = Author.create(books: [@book_4], name: "Nerd", age: 26, hometown: "lameville", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/James_Patterson.jpg/220px-James_Patterson.jpg")
 
     @review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body", created_at: "2019-01-31 00:00:00")
-    #@review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body", created_at: Date.today - 5)
     @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body", created_at: "2019-02-02 00:00:00")
     @review_3 = @book_2.reviews.create(title: "So so", score: 3, review_text: "text body", created_at: "2019-02-01 00:00:00")
     @review_4 = @book_4.reviews.create(title: "As Expected", score: 5, review_text: "Love Ruby", created_at: "2019-01-11 00:00:00")
@@ -65,7 +64,7 @@ RSpec.describe'user show page', type: :feature do
       end
     end
 
-    it "user can sort users by descending chronological order" do
+    it "user can sort reviews by descending chronological order" do
       visit user_path(@user_1)
 
       expect(page).to have_content("Sort Reviews by:")
@@ -78,7 +77,7 @@ RSpec.describe'user show page', type: :feature do
       expect(page.all('.user_review')[2]).to have_content('Good book')
     end
 
-    it "user can sort users by ascending chronological order" do
+    it "user can sort reviews by ascending chronological order" do
       visit user_path(@user_1)
 
       expect(page).to have_content("Sort Reviews by:")
@@ -109,7 +108,8 @@ RSpec.describe'user show page', type: :feature do
       end
 
       expect(current_path).to eq(user_path(@user_1))
-      expect(page).to_not have_content("Harry Potter 1")
+      expect(page).to_not have_content("Good book")
+      expect(page).to have_content("So so")
     end
 
   end

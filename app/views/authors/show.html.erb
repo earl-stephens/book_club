@@ -19,10 +19,14 @@
     </p>
   <% end %>
   <% review = book.top_review %>
-  <section class="author_book_<%= book.id %>_review">
-    <p><%= review.title %></p>
-    <p>Rating: <%= review.score %></p>
-    <p><%= review.review_text %></p>
-    <p>User: <a href="/users/<%= review.user.id %>"><%= review.user.name %></a>
-  </section>
+  <% if review %>
+    <section class="author_book_<%= book.id %>_review">
+      <p><%= review.title %></p>
+      <p>Rating: <%= review.score %></p>
+      <p><%= review.review_text %></p>
+      <p>User: <a href="/users/<%= review.user.id %>"><%= review.user.name %></a>
+    </section>
+    <% else %>
+      <p>Book has no reviews yet.</p>
+    <% end %>
 <% end %>

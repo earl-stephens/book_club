@@ -77,7 +77,7 @@ RSpec.describe'author show page', type: :feature do
       end
     end
 
-    it "user can delete review" do
+    it "user can delete author" do
       visit author_path(@author_1)
 
       click_on "Delete Author"
@@ -86,9 +86,22 @@ RSpec.describe'author show page', type: :feature do
       expect(page).to_not have_content("JK Rowling")
       expect(page).to_not have_content("Harry Potter 1")
       expect(page).to_not have_content("Harry Potter 2")
-      expect(page).to_not have_content("The Shining")
+      expect(page).to have_content("The Shining")
       expect(page).to have_content("Survivor")
     end
-  end
 
+    it "user can delete author and leave other author" do
+      visit author_path(@author_2)
+
+      click_on "Delete Author"
+
+      expect(current_path).to eq(books_path)
+      expect(page).to have_content("JK Rowling")
+      expect(page).to_not have_content("James Patterson")
+      expect(page).to_not have_content("Harry Potter 1")
+      expect(page).to have_content("Harry Potter 2")
+      expect(page).to_not have_content("The Shining")
+      expect(page).to_not have_content("Shakespeare")
+    end
+  end
 end
