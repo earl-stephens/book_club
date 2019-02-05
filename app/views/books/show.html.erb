@@ -1,21 +1,45 @@
-<h1><%= @book.title %></h1>
-<h1><%= @book.pages %></h1>
-<h1><%= @book.year_pub %></h1>
 <img src="<%= @book.image %>" alt="large book image"/>
+<h1><%= @book.title %></h1>
+<h2>Average rating: <%= @book.avg_score %></h2>
+<p>Author(s):
 <% @book.authors.each do |author| %>
-<p><%= author.name %></p>
+  <a href="/authors/<%= author.id %>"><%= author.name %></a>
 <% end %>
+</p>
+<h1>Page count: <%= @book.pages %></h1>
+<h1>Year published: <%= @book.year_pub %></h1>
+
 
 
 
 <section class="book_stats">
   <h1>Book Statistics</h1>
-  <h2>Top three reviews: </h2>
-  <% @book.top_reviews.each do |review| %>
-  <p><%= review %></p>
+
+  <% if @book.reviews.empty? %>
+    <p>This book has not yet been reviewed.</p>
+  <% else %>
+    <section class="book_<%= @book.id %>_top_reviews">
+      <h2>Top three reviews: </h2>
+      <% @book.top_reviews.each do |review| %>
+        <article class="book_<%= @book.id %>_top_review_<%= review.id %>">
+          <p><%= review.title %></p>
+          <p>Rating: <%= review.score %></p>
+          <p>User: <a href="/users/<%= review.user.id %>"><%= review.user.name %></a>
+        </article>
+      <% end %>
+    </section>
+
+    <section class="book_<%= @book.id %>_bottom_reviews">
+      <h2>Bottom three reviews: </h2>
+      <% @book.bottom_reviews.each do |review| %>
+        <article class="book_<%= @book.id %>_bottom_review_<%= review.id %>">
+          <p><%= review.title %></p>
+          <p>Rating: <%= review.score %></p>
+          <p>User: <a href="/users/<%= review.user.id %>"><%= review.user.name %></a>
+        </article>
+      <% end %>
+    </section>
   <% end %>
-  <h2>Bottom three reviews: </h2>
-  <h2>Average rating: <%= @book.avg_score %></h2>
 </section>
 
 <h1>Book Reviews</h1>
@@ -24,7 +48,7 @@
     <section class="review_<%= review.id %>">
       <p><%= review.title %></p>
       <p>Rating: <%= review.score %></p>
-      <p><%= review.review_text %></p>
+      <p>"<%= review.review_text %>"</p>
       <p>User: <a href="/users/<%= review.user.id %>"><%= review.user.name %></a>
     </section>
   <% end %>

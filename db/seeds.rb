@@ -24,7 +24,7 @@ book_5 = Book.create(title: "Ruby on Rails", pages: 447, year_pub: 2005, image: 
 
 Author.create(books: [book_1, book_2], name: "JK Rowling", age: 53, hometown: "Yate", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/J._K._Rowling_2010.jpg/220px-J._K._Rowling_2010.jpg")
 Author.create(books: [book_3], name: "William Goldman", age: 87, hometown: "Manhattan, New York", image: "https://upload.wikimedia.org/wikipedia/commons/c/c4/William_Goldman.jpg")
-Author.create(books: [book_4], name: "Stephen King", age: 71, hometown: "Portland, Maine", image: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Stephen_King%2C_Comicon.jpg")
+Author.create(books: [book_4, book_1], name: "Stephen King", age: 71, hometown: "Portland, Maine", image: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Stephen_King%2C_Comicon.jpg")
 Author.create(books: [book_5], name: "Nerd", age: 26, hometown: "lameville", image: "https://savageminds.org/wp-content/image-upload/600full-revenge-of-the-nerds-screenshot.jpg")
 #Author.create(name: "Zach", age: 27, hometown: "Boulder", image: "https://cdn-images-1.medium.com/max/1600/0*xkoslog_JZCZsLgb.jpg")
 

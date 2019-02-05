@@ -17,9 +17,9 @@ RSpec.describe'book show page', type: :feature do
 
     @reviews = [@review_1, @review_2]
 
-    @user_1 = User.create(reviews: [@review_1, @review_3], name: "April")
-    @user_2 = User.create(reviews: [@review_2], name: "Peter")
-    @user_3 = User.create(reviews: [@review_3], name: "Julia")
+    @user_1 = User.create(reviews: [@review_1, @review_3, @review_5], name: "April")
+    @user_2 = User.create(reviews: [@review_2, @review_6, @review_8], name: "Peter")
+    @user_3 = User.create(reviews: [@review_4], name: "Julia")
     @user_4 = User.create(name: "Earl")
   end
 
@@ -60,12 +60,74 @@ RSpec.describe'book show page', type: :feature do
 
       visit book_path(@book_1)
 
-      within ".top_reviews"
-      # expected = [@review_4, @review_6, @review_7]
       expect(page).to have_content("Book Statistics")
-      expect(page).to have_content("Loved it")
-      expect(page).to have_content("Hated it")
       expect(page).to have_content("Average rating: 3")
+    end
+
+    context "in top reviews section" do
+      it "has top reviews" do
+        visit book_path(@book_1)
+
+        within ".book_#{@book_1.id}_top_reviews" do
+          expect(page).to have_content("Top three reviews:")
+
+          within ".book_#{@book_1.id}_top_review_#{@review_6.id}" do
+            expect(page).to have_content("Best ever!")
+            expect(page).to have_content("Rating: 5")
+            expect(page).to have_content("User: Peter")
+          end
+
+          within ".book_#{@book_1.id}_top_review_#{@review_4.id}" do
+            expect(page).to have_content("Loved it")
+            expect(page).to have_content("Rating: 5")
+            expect(page).to have_content("User: Julia")
+          end
+
+          within ".book_#{@book_1.id}_top_review_#{@review_1.id}" do
+            expect(page).to have_content("Good book")
+            expect(page).to have_content("Rating: 4")
+            expect(page).to have_content("User: April")
+          end
+        end
+      end
+
+      context "in worst reviews section" do
+        it "has bottom reviews" do
+          visit book_path(@book_1)
+
+          within ".book_#{@book_1.id}_bottom_reviews" do
+            expect(page).to have_content("Bottom three reviews:")
+
+            within ".book_#{@book_1.id}_bottom_review_#{@review_2.id}" do
+              expect(page).to have_content("Hated it")
+              expect(page).to have_content("Rating: 1")
+              expect(page).to have_content("User: Peter")
+            end
+
+            within ".book_#{@book_1.id}_bottom_review_#{@review_8.id}" do
+              expect(page).to have_content("Not so good")
+              expect(page).to have_content("Rating: 2")
+              expect(page).to have_content("User: Peter")
+            end
+
+            within ".book_#{@book_1.id}_bottom_review_#{@review_5.id}" do
+              expect(page).to have_content("Ok")
+              expect(page).to have_content("Rating: 3")
+              expect(page).to have_content("User: April")
+            end
+          end
+        end
+
+        it "has no review statement" do
+          visit book_path(@book_3)
+
+          within ".book_stats" do
+            expect(page).to_not have_content("Top three reviews:")
+            expect(page).to_not have_content("Bottom three reviews:")
+            expect(page).to have_content("This book has not yet been reviewed.")
+          end
+        end
+      end
     end
   end
 
