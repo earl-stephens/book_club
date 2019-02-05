@@ -26,6 +26,7 @@ class BooksController < ApplicationController
     end
     new_book_params = book_params
     new_book_params["authors"] = authors
+    new_book_params[:title] = params["book"]["title"].titleize
 
     if params["book"]["image"] == ""
       new_book_params.delete("image")

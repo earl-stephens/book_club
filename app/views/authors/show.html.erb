@@ -1,7 +1,17 @@
 <h1><%= @author.name %></h1>
-<h3>Age: <%= @author.age %></h3>
-<h3>Born: <%= @author.hometown %></h3>
-<img src="<%= @author.image %>" alt="large author image"/>
+<h3>Age:
+  <% if @author.age == nil %>
+    Unknown
+  <% else %>
+   <%= @author.age %>
+ <% end %></h3>
+<h3>Born:
+  <% if @author.hometown == nil %>
+    Unknown
+  <% else %>
+    <%= @author.hometown %>
+<% end %></h3>
+<img src=<%= @author.image %> alt="large author image"/>
 <section class="author_delete">
   <%= button_to 'Delete Author', author_path(@author), method: :delete, data: { confirm: 'Are you sure you want to delete this author?' } %>
 </section>

@@ -1,5 +1,17 @@
 <% require 'date' %>
 
+<% if @book.errors %>
+<ul id="errors">
+  <% @book.errors.full_messages.each do |message| %>
+  <li><%= message %></li>
+  <% end %>
+</ul>
+<% end %>
+
+<% if @error_msg %>
+  <h1> <%= @error_msg %> </h1>
+<% end %>
+
 
 <%= form_for @book do |f| %>
   <%= f.label :title %>
