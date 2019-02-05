@@ -26,10 +26,9 @@ describe "user can delete books" do
       visit book_path(@book_1)
 
       click_on "Delete this book."
-# save_and_open_page
 
-      expect(current_path).to eq(book_path(@book_1))
-
+      expect(current_path).to eq(books_path)
+      expect(page).to_not have_content("Harry Potter 1")
     end
   end
 
