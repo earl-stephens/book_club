@@ -12,43 +12,31 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
-    # binding.pry
-    # @top_reviews = Book.top_reviews
   end
 
   def new
-    # @book = Book.new
+    @book = Book.new
   end
 
   def create
     author_names = params["book"]["authors"].split(",")
-    # binding.pry
-      # authors = name: "#{params["book"]["authors"]}"
-      authors = []
+    authors = []
     author_names.each do |name|
       authors << Author.find_or_create_by(name: name.titleize.strip)
     end
-  # binding.pry
-    # if Author.exists?(name: authors[:name])
     new_book_params = book_params
     new_book_params["authors"] = authors
+
+    if params["book"]["image"] == ""
+      new_book_params.delete("image")
+    end
+
     @book = Book.new(new_book_params)
     if @book.save
-      # book.save
-      # binding.pry
       redirect_to book_path(@book.id)
     else
       render :new
     end
-    # else
-    #   new_author = Author.new(authors)
-    #   new_author.books.new(book_params)
-    #   if book.save
-    #     redirect_to book_path(book.id)
-    #   else
-    #     render :new
-    #   end
-    # end
   end
 
   private

@@ -1,18 +1,19 @@
-<%= form_for Book.new do |f| %>
+<% require 'date' %>
+
+
+<%= form_for @book do |f| %>
   <%= f.label :title %>
-  <%= f.text_field :title %>
+  <%= f.text_field :title, required: true %>
+
+  Author(s): <input type="text" value="" name="book[authors]" id="book_authors" required="true">
 
   <%= f.label :pages %>
-  <%= f.text_field :pages %>
+  <%= f.number_field :pages, min:1, required: true %>
 
   <%= f.label :year_pub %>
-  <%= f.text_field :year_pub %>
+  <%= f.number_field :year_pub, in: 0..Date.today.year, required: true %>
 
-  <%= f.label :image %>
-  <%= f.text_field :image %>
-
-  <%= f.label :authors %>
-  <%= f.text_field :authors %>
+  Image (optional): <input type="text" value="" name="book[image]" id="book_image">
 
   <%= f.submit :Save %>
 <% end %>

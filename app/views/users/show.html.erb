@@ -1,0 +1,16 @@
+<img src="<%= @user.image %>" alt="large user image"/>
+<h1><%= @user.name %></h1>
+<h3>Age: <%= @user.age %></h3>
+<h3>Location: <%= @user.location %></h3>
+
+<p>User Reviews:</p>
+<% @user.reviews.each do |review| %>
+  <section class="user_review_<%= review.id %>">
+    <img src="<%= review.book.image %>" alt="small book image"/>
+    <p><%= review.book.title %></p>
+    <p><%= review.title %></p>
+    <p>Rating: <%= review.score %></p>
+    <p><%= review.review_text %></p>
+    <p>Created on: <%= review.created_at.strftime("%B %-d, %Y") %></p>
+  </section>
+<% end %>

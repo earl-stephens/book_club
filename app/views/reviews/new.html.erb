@@ -1,17 +1,19 @@
 <h1>Enter a new book review:</h1>
 
 <%= form_for [@book, @review] do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
+  <%= f.label "title:" %>
+  <%= f.text_field :title, required: true %>
 
   <%= f.label :score %>
-  <%= f.number_field :score %>
+  <%= f.number_field :score, in: 1..5, required: true %>
 
   <%= f.label :review_text %>
-  <%= f.text_field :review_text %>
+  <%= f.text_field :review_text, required: true %>
 
   <%= f.label :user %>
-  <%= f.text_field :user %>
+  <%= f.text_field :user, required: true %>
+
+  Image (optional): <input type="text" value="" name="user[image]" id="user_image">
 
   <%= f.submit :Save %>
 <% end %>

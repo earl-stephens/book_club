@@ -48,12 +48,24 @@ RSpec.describe'book show page', type: :feature do
           expect(page).to have_content(review.title)
           expect(page).to_not have_content(@review_3.title)
           expect(page).to have_content(review.score)
-          #expect(page).to_not have_content(@review_3.score)
           expect(page).to have_content(review.review_text)
           expect(page).to have_content(@review_3.review_text)
       end
     end
   end
+
+  context "user sees a new review button" do
+    it "user_can_click_button_for_new_review" do
+
+      visit book_path(@book_1)
+
+      expect(page).to have_link("Add a Review!", href: new_book_review_path(@book_1))
+
+      click_link("Add a Review!")
+      expect(current_path).to eq(new_book_review_path(@book_1))
+    end
+  end
+
 
   context "user sees book statistics area" do
     it "shows_the_user_the_book_statistics" do

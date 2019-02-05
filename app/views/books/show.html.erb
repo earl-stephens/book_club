@@ -43,6 +43,8 @@
 </section>
 
 <h1>Book Reviews</h1>
+<%= link_to '<button type="button">Add a Review!</button>'.html_safe, new_book_review_path(@book)%>
+
 <section class="book_review">
   <% @book.reviews.each do |review| %>
     <section class="review_<%= review.id %>">
