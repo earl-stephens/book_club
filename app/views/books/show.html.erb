@@ -55,3 +55,8 @@
     </section>
   <% end %>
 </section>
+
+<section class="deleting">
+  <%= link_to 'Destroy', book_path(@book),
+              method: :delete %>
+</section>
