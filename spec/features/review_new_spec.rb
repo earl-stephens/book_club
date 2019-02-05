@@ -9,7 +9,7 @@ RSpec.describe "review new page", type: :feature do
   end
 
   it "allows user to create a new book review" do
-    title = "Good review"
+    title = "Good Review"
     score = 4
     review_text = "lots of text"
     user = "Frank"

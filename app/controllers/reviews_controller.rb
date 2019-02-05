@@ -10,15 +10,11 @@ class ReviewsController < ApplicationController
 
   def create
     new_params = review_params
-    #
-    # if params[:review][:image] == ""
-    #   new_params.delete("image")
-    # end
-
     username = params[:review][:user]
     user = User.find_or_create_by(name: username.titleize.strip)
 
     new_params[:user] = user
+    new_params[:title] = review_params[:title].titleize
     @book = Book.find(params[:book_id])
     @review = @book.reviews.new(new_params)
     if @review.save
