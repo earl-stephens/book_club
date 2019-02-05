@@ -9,13 +9,14 @@ RSpec.describe'author show page', type: :feature do
     @author_1 = Author.create(books: [@book_1, @book_2], name: "JK Rowling", age: 53, hometown: "Yate", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/J._K._Rowling_2010.jpg/220px-J._K._Rowling_2010.jpg")
     @author_2 = Author.create(books: [@book_1, @book_3], name: "Shakespeare", age: 300, hometown: "London", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Shakespeare.jpg/220px-Shakespeare.jpg")
     @author_3 = Author.create(books: [@book_1], name: "James Patterson", age: 71, hometown: "Newburgh", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/James_Patterson.jpg/220px-James_Patterson.jpg")
+    @author_4 = Author.create(books: [@book_3], name: "Survivor", age: 171, hometown: "Eden", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/James_Patterson.jpg/220px-James_Patterson.jpg")
 
     @review_1 = @book_1.reviews.create(title: "Good book", score: 4, review_text: "text body")
     @review_2 = @book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body2")
     @review_3 = @book_1.reviews.create(title: "Favorite", score: 5, review_text: "text body3")
     @review_4 = @book_2.reviews.create(title: "So so", score: 3, review_text: "text body")
-    @user_1 = User.create(reviews: [@review_1, @review_2, @review_3, @review_4], name: "Earl")
 
+    @user_1 = User.create(reviews: [@review_1, @review_2, @review_3, @review_4], name: "Earl")
   end
 
   context "user clicks author link" do
@@ -66,6 +67,27 @@ RSpec.describe'author show page', type: :feature do
         expect(page).to have_content("User: Earl")
       end
 
+    end
+
+    it "user can see delete button for author" do
+      visit author_path(@author_1)
+
+      within ".author_delete" do
+        expect(page).to have_button('Delete Author')
+      end
+    end
+
+    it "user can delete review" do
+      visit author_path(@author_1)
+
+      click_on "Delete Author"
+
+      expect(current_path).to eq(books_path)
+      expect(page).to_not have_content("JK Rowling")
+      expect(page).to_not have_content("Harry Potter 1")
+      expect(page).to_not have_content("Harry Potter 2")
+      expect(page).to_not have_content("The Shining")
+      expect(page).to have_content("Survivor")
     end
   end
 

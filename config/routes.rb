@@ -3,11 +3,8 @@ Rails.application.routes.draw do
   root 'splash#index'
 
   resources :books do
-    resources :reviews, only: [:new, :create]
+    resources :reviews, only: [:new, :create, :destroy]
   end
-  resources :authors, only: [:show, :edit]
+  resources :authors, only: [:show, :edit, :destroy]
   resources :users
-
-# resources :books
-#   get '/books', to: 'books#index'
 end
