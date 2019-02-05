@@ -4,7 +4,7 @@
 <img src="<%= @author.image %>" alt="large author image"/>
 <% @author.books.each do |book| %>
   <img src="<%= book.image %>" alt="small book image"/>
-  <p><%= book.title %></p>
+  <p><a href="/books/<%= book.id %>"><%= book.title %></a></p>
   <p>Pages: <%= book.pages %></p>
   <p>Year: <%= book.year_pub %></p>
   <% if !book.other_authors(@author.name).empty? %>
