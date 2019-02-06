@@ -19,7 +19,7 @@
   <section class="user_review">
     <section class="user_review_<%= review.id %>">
       <img src="<%= review.book.image %>" alt="small book image"/>
-      <p><%= review.book.title %></p>
+      <a href="/books/<%= review.book.id %>" class="book-title"> <%= review.book.title %></a>
       <p><%= review.title %></p>
       <p>Rating: <%= review.score %></p>
       <p><%= review.review_text %></p>

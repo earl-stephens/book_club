@@ -43,7 +43,7 @@ RSpec.describe Book, type: :model do
       it 'average rating ascending' do
         books = Book.select_sort("avg_rating_asc")
 
-        expect(books).to eq([@book_3, @book_1, @book_2, @book_4])
+        expect(books).to eq([@book_1, @book_2, @book_4, @book_3])
       end
 
       it 'average rating descending' do
@@ -104,17 +104,7 @@ RSpec.describe Book, type: :model do
     it "can find average review score" do
       score = @book_1.avg_score.round(2)
 
-      expect(score).to eq(2.33)
-
-      score = @book_2.avg_score.round(2)
-
-      expect(score).to eq(0)
-    end
-
-    it "can find total number of review users" do
-      score = @book_1.avg_score.round(2)
-
-      expect(score).to eq(2.33)
+      expect(score).to eq(2.3)
 
       score = @book_2.avg_score.round(2)
 

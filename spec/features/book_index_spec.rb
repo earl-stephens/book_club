@@ -64,7 +64,7 @@ describe "book_index" do
       visit books_path
 
       within ".statistics_top_reviewers" do
-        expect(page).to have_content("People with too much free time:")
+        expect(page).to have_content("People with too much free time (reviews left):")
         expect(page).to have_content("April")
         expect(page).to have_content("Julia")
         expect(page).to have_content("Peter")
@@ -86,7 +86,7 @@ describe "book_index" do
             within ".review_#{review.id}" do
               expect(page).to have_content(review.title)
               expect(page).to have_content(review.review_text)
-              expect(page).to have_content("Score: #{review.score}")
+              expect(page).to have_content("#{review.title}\n(#{review.score} / 5)")
             end
           end
         end
@@ -111,11 +111,11 @@ describe "book_index" do
       @books.each do |book|
         within ".book_#{book.id}" do
           if book.reviews.count == 0
-            expect(page).to have_content("Average Score: No reviews for this book yet.")
+            expect(page).to have_content("(No reviews for this book yet.)")
           else
-            expect(page).to have_content("#{book.title} (#{book.avg_score})")
+            expect(page).to have_content("#{book.title}\n(#{book.avg_score})")
           end
-        expect(page).to have_content("Number of Reviews: #{book.reviews.count}")
+        expect(page).to have_content("Book Club Reviews: (#{book.reviews.count})")
         end
       end
     end
@@ -130,10 +130,10 @@ describe "book_index" do
       select "Average rating (ascending)", :from => "sort[value]"
       click_button("Sort")
 
-      expect(page.all('.book-title')[0]).to have_content('The Shining')
-      expect(page.all('.book-title')[1]).to have_content('Harry Potter 1')
-      expect(page.all('.book-title')[2]).to have_content('Harry Potter 2')
-      expect(page.all('.book-title')[3]).to have_content('Ruby on Rails')
+      expect(page.all('.book-title')[0]).to have_content('Harry Potter 1')
+      expect(page.all('.book-title')[1]).to have_content('Harry Potter 2')
+      expect(page.all('.book-title')[2]).to have_content('Ruby on Rails')
+      expect(page.all('.book-title')[3]).to have_content('The Shining')
     end
   end
 
