@@ -3,7 +3,7 @@ class BooksController < ApplicationController
     if params[:sort]
       @books = Book.select_sort(params[:sort][:value])
     else
-      @books = Book.all
+      @books = Book.select_sort("random")
     end
     @top_books = Book.top_books.limit(3)
     @worst_books = Book.worst_books.limit(3)
