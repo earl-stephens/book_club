@@ -6,7 +6,7 @@ describe "splash_page" do
     visit root_path
 
     expect(page).to have_content("Welcome")
-    expect(page).to have_content("Description")
+    expect(page).to have_content("Feel free to browse our library of books")
     expect(page).to have_css("img[src*='#{image}']")
   end
 end
