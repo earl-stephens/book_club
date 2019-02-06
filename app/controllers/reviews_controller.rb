@@ -1,7 +1,4 @@
 class ReviewsController < ApplicationController
-  # def show
-  #   @review = Review.find(params[:id])
-  # end
 
   def new
     @book = Book.find(params[:book_id])
@@ -10,13 +7,15 @@ class ReviewsController < ApplicationController
 
   def create
     new_params = review_params
+
     username = params[:review][:user]
     user = User.find_or_create_by(name: username.titleize.strip)
-
     new_params[:user] = user
     new_params[:title] = review_params[:title].titleize
+
     @book = Book.find(params[:book_id])
     @review = @book.reviews.new(new_params)
+    
     if @review.save
       redirect_to book_path(@book.id)
     else
@@ -25,7 +24,6 @@ class ReviewsController < ApplicationController
   end
 
   def destroy
-    # binding.pry
     @review = Review.find(params[:review])
     @review.destroy
     redirect_to user_path(params[:id]), notice: "Review Deleted"
