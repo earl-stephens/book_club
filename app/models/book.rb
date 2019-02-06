@@ -6,7 +6,6 @@ class Book < ApplicationRecord
   validates :title, presence: true, uniqueness: true
   validates :pages, presence: true
   validates :year_pub, presence: true
-  #validates :publisher, presence: true
 
   def avg_score
     if self.reviews.count == 0
