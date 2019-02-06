@@ -21,12 +21,24 @@ book_2 = Book.create(title: "Harry Potter and the Half-Blood Prince", pages: 652
 book_3 = Book.create(title: "The Princess Bride", pages: 493, year_pub: 1973, image: "https://upload.wikimedia.org/wikipedia/en/c/cf/The_Princess_Bride_%28First_Edition%29.jpg", publisher: "Harcourt Brace Jovanovich", created_at: 4.days.ago, updated_at: 2.days.ago)
 book_4 = Book.create(title: "The Shining", pages: 447, year_pub: 1977, image: "https://upload.wikimedia.org/wikipedia/en/4/4c/Shiningnovel.jpg", publisher: "Doubleday", created_at: 3.days.ago, updated_at: 2.days.ago)
 book_5 = Book.create(title: "Ruby on Rails", pages: 447, year_pub: 2005, image: "https://i.ebayimg.com/images/g/x1oAAOSwL~FbdPNO/s-l1600.jpg", publisher: "Random House", created_at: 2.days.ago, updated_at: 2.days.ago)
+book_6 = Book.create(title: "Harry Potter and the Order of the Phoenix", pages: 870, year_pub: 2003, image: "https://upload.wikimedia.org/wikipedia/en/7/70/Harry_Potter_and_the_Order_of_the_Phoenix.jpg", publisher: "Bloomsbury", created_at: 5.days.ago, updated_at: 2.days.ago)
+book_7 = Book.create(title: "The Casual Vacancy", pages: 503, year_pub: 2012, image: "https://upload.wikimedia.org/wikipedia/en/9/91/The_Casual_Vacancy.jpg", publisher: "Little, Brown and Company", created_at: 5.days.ago, updated_at: 2.days.ago)
+book_8 = Book.create(title: "In Search of Lost Time", pages: 4215, year_pub: 1927, image: "https://upload.wikimedia.org/wikipedia/commons/5/57/MS_A_la_recherche_du_temps_perdu.jpg", publisher: "Grasset and Gallimard", created_at: 4.days.ago, updated_at: 2.days.ago)
+
+book_9 = Book.create(title: "The Shining", pages: 447, year_pub: 1977, image: "https://upload.wikimedia.org/wikipedia/en/4/4c/Shiningnovel.jpg", publisher: "Doubleday", created_at: 3.days.ago, updated_at: 2.days.ago)
+book_10 = Book.create(title: "Ruby on Rails", pages: 447, year_pub: 2005, image: "https://i.ebayimg.com/images/g/x1oAAOSwL~FbdPNO/s-l1600.jpg", publisher: "Random House", created_at: 2.days.ago, updated_at: 2.days.ago)
+book_11 = Book.create(title: "Harry Potter and the Prisoner of Azkaban", pages: 435, year_pub: 1999, image: "https://upload.wikimedia.org/wikipedia/en/a/a0/Harry_Potter_and_the_Prisoner_of_Azkaban.jpg", publisher: "Bloomsbury", created_at: 5.days.ago, updated_at: 2.days.ago)
+book_12 = Book.create(title: "Harry Potter and the Half-Blood Prince", pages: 652, year_pub: 2005, image: "https://upload.wikimedia.org/wikipedia/en/f/f0/Harry_Potter_and_the_Half-Blood_Prince.jpg", publisher: "Bloomsbury", created_at: 5.days.ago, updated_at: 2.days.ago)
+book_13 = Book.create(title: "The Princess Bride", pages: 493, year_pub: 1973, image: "https://upload.wikimedia.org/wikipedia/en/c/cf/The_Princess_Bride_%28First_Edition%29.jpg", publisher: "Harcourt Brace Jovanovich", created_at: 4.days.ago, updated_at: 2.days.ago)
+book_14 = Book.create(title: "The Shining", pages: 447, year_pub: 1977, image: "https://upload.wikimedia.org/wikipedia/en/4/4c/Shiningnovel.jpg", publisher: "Doubleday", created_at: 3.days.ago, updated_at: 2.days.ago)
+book_15 = Book.create(title: "Ruby on Rails", pages: 447, year_pub: 2005, image: "https://i.ebayimg.com/images/g/x1oAAOSwL~FbdPNO/s-l1600.jpg", publisher: "Random House", created_at: 2.days.ago, updated_at: 2.days.ago)
 
 Author.create(books: [book_1, book_2], name: "JK Rowling", age: 53, hometown: "Yate", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/J._K._Rowling_2010.jpg/220px-J._K._Rowling_2010.jpg")
 Author.create(books: [book_3], name: "William Goldman", age: 87, hometown: "Manhattan, New York", image: "https://upload.wikimedia.org/wikipedia/commons/c/c4/William_Goldman.jpg")
 Author.create(books: [book_4, book_1], name: "Stephen King", age: 71, hometown: "Portland, Maine", image: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Stephen_King%2C_Comicon.jpg")
 Author.create(books: [book_5], name: "Nerd", age: 26, hometown: "lameville", image: "https://savageminds.org/wp-content/image-upload/600full-revenge-of-the-nerds-screenshot.jpg")
-#Author.create(name: "Zach", age: 27, hometown: "Boulder", image: "https://cdn-images-1.medium.com/max/1600/0*xkoslog_JZCZsLgb.jpg")
+
+Author.create(books: [book_5], name: "Marcel Proust", age: 51, hometown: "Auteuil, France", image: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Marcel_Proust_1900-2.jpg")
 
 review_1 = book_1.reviews.create(title: "Good book", score: 4, review_text: "text body")
 review_2 = book_1.reviews.create(title: "Hated it", score: 1, review_text: "text body")

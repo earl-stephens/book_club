@@ -1,71 +1,107 @@
-<h1>All Books</h1>
-
-<section class="sort_results_option">
-  <p>Sort Results by:</p>
-  <form action="/books" method="get">
-    <select name="sort[value]">
-      <option value="avg_rating_asc">Average rating (ascending)</option>
-      <option value="avg_rating_desc">Average rating (descending)</option>
-      <option value="num_pages_asc">Number of pages (ascending)</option>
-      <option value="num_pages_desc">Number of pages (descending)</option>
-      <option value="num_reviews_asc">Number of reviews (ascending)</option>
-      <option value="num_reviews_desc">Number of reviews (descending)</option>
-    </select>
-    <input type="submit" value="Sort">
-  </form>
-</section>
-
-<section class="statistics">
-  <article class="statistics_top_books">
-    <p>Recommended Selections:</p>
-    <% @top_books.each do |book| %>
-      <p><a href="/books/<%= book.id %>"> <%= book.title %></a> (<%= book.avg_score %>)</p>
-    <% end %>
-  </article>
-  <article class="statistics_worst_books">
-    <p>Readers Hated:</p>
-    <% @worst_books.each do |book| %>
-    <p><a href="/books/<%= book.id %>"> <%= book.title %></a> (<%= book.avg_score %>)</p>
-    <% end %>
-  </article>
-  <article class="statistics_top_reviewers">
-    <p>People with too much free time:</p>
-    <% @top_reviewers.each do |reviewer| %>
-      <p><a href="/users/<%= reviewer.id %>"> <%= reviewer.name %></a>(<%= reviewer.number_reviews %>)</p>
-    <% end %>
-  </article>
-</section>
-
-<section>
-<% @books.each do |book| %>
-  <section class="book_<%= book.id %>">
-    <h2><a href="/books/<%= book.id %>" class="book-title"> <%= book.title %></a></h2>
-    <% book.authors.each do |author| %>
-      <h2><a href="/authors/<%= author.id %>" class="book-author"> <%= author.name %></a></h2>
-    <% end %>
-    <p>Pages: <%= book.pages %></p>
-    <p>Year: <%= book.year_pub %></p>
-    <p><%= book.publisher %></p>
-    <img src="<%= book.image %>"/>
-    <% if book.reviews.count == 0 %>
-      <p>Average Score: No reviews for this book yet.</p>
-    <% else %>
-      <p>Average Score: <%= book.avg_score %></p>
-    <% end %>
-    <p>Number of Reviews: <%= book.reviews.count %></p>
-    <p>All Reviews:</p>
-    <% book.reviews.each do |review| %>
-      <section class="review_<%= review.id %>">
-        <p><%= review.title %></p>
-        <p><%= review.review_text %></p>
-        <p>Score: <%= review.score %></p>
-        <p>User: <a href="/users/<%= review.user.id %>" class="book-author"> <%= review.user.name %></a></p>
-      </section>
-    <% end %>
-  </section>
-<% end %>
-</section>
-
 <section class="new_book">
   <a href="<%= new_book_path %>" >Add a new book</a>
+</section>
+
+<section class="index-background">
+  <section class="index-title">
+    <h1>Library</h1>
+  </section>
+
+  <section class="statistics-three-column">
+    <section class="statistics">
+      <article class="statistics_top_books statistics_column">
+        <p>Recommended Selections:</p>
+        <% @top_books.each do |book| %>
+        <section class="column-books">
+          <a href="/books/<%= book.id %>"> <%= book.title %></a> (<%= book.avg_score %>)</br>
+        </section>
+        <% end %>
+      </article>
+      <article class="statistics_worst_books statistics_column">
+        <p>Readers Hated:</p>
+        <% @worst_books.each do |book| %>
+        <section class="column-books">
+          <a href="/books/<%= book.id %>"> <%= book.title %></a> (<%= book.avg_score %>)</br>
+        </section>
+        <% end %>
+      </article>
+      <article class="statistics_top_reviewers statistics_column">
+        <p>People with too much free time:</p>
+        <% @top_reviewers.each do |reviewer| %>
+        <section class="column-books">
+          <a href="/users/<%= reviewer.id %>"> <%= reviewer.name %></a>(<%= reviewer.number_reviews %>)</br>
+        </section>
+        <% end %>
+      </article>
+    </section>
+  </section>
+
+  <section class="library-books">
+    <h1>All Books</h1>
+
+    <section class="sort_results_option">
+      <p>Sort Results by: </p>
+      <form action="/books" method="get">
+        <select name="sort[value]">
+          <option value="avg_rating_asc">Average rating (ascending)</option>
+          <option value="avg_rating_desc">Average rating (descending)</option>
+          <option value="num_pages_asc">Number of pages (ascending)</option>
+          <option value="num_pages_desc">Number of pages (descending)</option>
+          <option value="num_reviews_asc">Number of reviews (ascending)</option>
+          <option value="num_reviews_desc">Number of reviews (descending)</option>
+        </select>
+        <input type="submit" value="Sort">
+      </form>
+    </section>
+
+
+
+    <% @books.each do |book| %>
+      <section class="book-section">
+
+        <section class="parent_container book_<%= book.id %>">
+          <section class="book-image">
+            <img src="<%= book.image %>">
+          </section>
+          <section class="book-info">
+            <article class="title-container">
+              <h2 class="library_book_title"><a href="/books/<%= book.id %>" class="book-title"> <%= book.title %></a></h2>
+              <h3 class="library_average_score">
+                <% if book.reviews.count == 0 %>
+                  (No reviews for this book yet.)
+                <% else %>
+                  (<%= book.avg_score %>)
+                <% end %>
+              </h3>
+            </article>
+            <h2 class="library_authors">By:
+              <% book.authors.each do |author| %>
+                <a href="/authors/<%= author.id %>" class="book-author"> <%= author.name %></a>
+                <% end %>
+            </h2>
+            <p>Pages: <%= book.pages %></p>
+            <p>Published: <%= book.year_pub %></p>
+            <p>Publisher: <%= book.publisher %></p>
+          </section>
+        </section>
+
+        <section class="library-reviews">
+          <p>Book Club Reviews: (<%= book.reviews.count %>)</p>
+          <% book.reviews.each do |review| %>
+            <section class="review_<%= review.id %>">
+              <article class="review-title-container">
+                <h1 class="review-title"><%= review.title %></h1>
+                <h2 class="review-score">(<%= review.score %> / 5)</h2>
+              </article>
+              <article class="review-body-container">
+                <p class="review-body">"<%= review.review_text %>"</p>
+                <p class="review-user"> - <a href="/users/<%= review.user.id %>" class="book-author"> <%= review.user.name %></a></p>
+              </article>
+            </section>
+          <% end %>
+        </section>
+
+      </section>
+    </section>
+  <% end %>
 </section>

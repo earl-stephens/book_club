@@ -32,7 +32,7 @@ describe "book_index" do
         expect(page).to have_content(book.publisher)
         expect(page).to have_css("img[src*='#{book.image}']")
         expect(page).to have_content("Pages: #{book.pages}")
-        expect(page).to have_content("Year: #{book.year_pub}")
+        expect(page).to have_content("Published: #{book.year_pub}")
       end
     end
   end
@@ -80,7 +80,7 @@ describe "book_index" do
 
       @books.each do |book|
         within ".book_#{book.id}" do
-          expect(page).to have_content("All Reviews:")
+          expect(page).to have_content("Book Club Reviews:")
 
           book.reviews.each do |review|
             within ".review_#{review.id}" do
@@ -113,7 +113,7 @@ describe "book_index" do
           if book.reviews.count == 0
             expect(page).to have_content("Average Score: No reviews for this book yet.")
           else
-            expect(page).to have_content("Average Score: #{book.avg_score}")
+            expect(page).to have_content("#{book.title} (#{book.avg_score})")
           end
         expect(page).to have_content("Number of Reviews: #{book.reviews.count}")
         end

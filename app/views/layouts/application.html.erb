@@ -1,7 +1,13 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>BookClub</title>
+<html lang="en" dir="ltr">
+ <head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+   <link rel="stylesheet" type="text/css" href="reset.css">
+   <link href="https://fonts.google.com/selection?selection.family=Roboto+Mono" rel="stylesheet">
+   <link rel="stylesheet" type='text/css' href="main.css">
+   <title>BookClub</title>
+
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
@@ -10,8 +16,9 @@
 
   <body>
     <nav>
-      <a href="/" id="Home">Home</a>
+      <h1>BookClub</h1>
       <a href="/books" id="Library">Library</a>
+      <a href="/" id="welcome">Welcome</a>
     </nav>
     <%= yield %>
   </body>
